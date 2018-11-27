@@ -11,6 +11,7 @@ require('electron-reload')(__dirname, {
 // keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
+let progress=20;
 
 function createWindow() {
     // get primary display
@@ -18,15 +19,15 @@ function createWindow() {
     // const { width, height } = display.workAreaSize;
     // get actual boundaries of the primary screen
     const { width, height } = display.bounds;
-    const appWidth = 600;
-    const appHeight = 600;
+    const appWidth = Math.floor(width/100*progress);
+    const appHeight = Math.floor(height/100*progress);
     // create new browser window
     const options = {
         width: appWidth,
         height: appHeight,
         frame: false,
-        x: width - 600,
-        y: height - 600,
+        x: width - appWidth,
+        y: height - appHeight,
         resizable: false,
         movable: false,
         minimizable: false,
