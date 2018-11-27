@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Photon</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/photon.css">
+    <script src="js/menu.js" charset="utf-8"></script>
+</head>
+
+<div class="window">
+    <header class="toolbar toolbar-header">
+        <h1 class="title">Header with actions</h1>
+        <div class="toolbar-actions">
+            <div class="btn-group">
+                <button class="btn btn-default">
+                    <span class="icon icon-home"></span>
+                </button>
+                <button class="btn btn-default">
+                    <span class="icon icon-folder"></span>
+                </button>
+                <button class="btn btn-default active">
+                    <span class="icon icon-cloud"></span>
+                </button>
+                <button class="btn btn-default">
+                    <span class="icon icon-popup"></span>
+                </button>
+                <button class="btn btn-default">
+                    <span class="icon icon-shuffle"></span>
+                </button>
+            </div>
+            <button class="btn btn-default">
+                <span class="icon icon-home icon-text"></span>
+                Filters
+            </button>
+            <button class="btn btn-default pull-right">
+                <span class="icon icon-megaphone"></span>
+            </button>
+        </div>
+    </header>
+    <div class="window-content">
+        <div class="pane-group">
+            <div class="pane-sm sidebar">
+                <nav class="nav-group">
+                    <h5 class="nav-group-title">Favorites</h5>
+                    <a class="nav-group-item active">
+                        <span class="icon icon-home"></span>
+                        Raja
+                    </a>
+                    <span class="nav-group-item">
+                        <span class="icon icon-download"></span>
+                        Downloads
+                    </span>
+                    <span class="nav-group-item">
+                        <span class="icon icon-folder"></span>
+                        Documents
+                    </span>
+                    <span class="nav-group-item">
+                        <span class="icon icon-signal"></span>
+                        AirPlay
+                    </span>
+                    <span class="nav-group-item">
+                        <span class="icon icon-print"></span>
+                        Applications
+                    </span>
+                    <span class="nav-group-item">
+                        <span class="icon icon-cloud"></span>
+                        Desktop
+                    </span>
+                </nav>
+            </div>
+            <!-- <div class="pane">content</div> -->
+        </div>
+    </div>
+    <footer class="toolbar toolbar-footer">
+        <div class="toolbar-actions">
+            <button class="btn btn-default">
+                Cancel
+            </button>
+            <button class="btn btn-primary pull-right">
+                Save
+            </button>
+        </div>
+    </footer>
+</div>
+<script>
+    // I do not want to be closed
+    window.onbeforeunload = (e) => {
+        // Unlike usual browsers that a message box will be prompted to users, returning
+        // a non-void value will silently cancel the close.
+        // It is recommended to use the dialog API to let the user confirm closing the
+        // application.
+        e.returnValue = false // equivalent to `return false` but not recommended
+    }
+</script>
+</body>
+
+</html>

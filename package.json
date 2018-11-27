@@ -1,0 +1,15 @@
+{
+  "name": "hepblocker",
+  "version": "1.0.0",
+  "description": "block user screen when work status is not updated",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raja K<raja.k@heptagon.in>",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^3.0.10"
+  }
+}
