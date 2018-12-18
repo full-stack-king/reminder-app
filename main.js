@@ -2,7 +2,14 @@
 
 // Modules to control application life and create native browser window
 const electron = require('electron');
-const { app, BrowserWindow } = electron;
+const { app, ipcMain, BrowserWindow } = electron;
+const employeeModel = require('./src/models/employee');
+const database = require('./src/database');
+let mongoose = require('mongoose');
+
+mongoose.connection.on('connected', function () {
+    fetchEmployees();
+ });
 
 require('electron-reload')(__dirname, {
     electron: require('${__dirname}/../../node_modules/electron')
@@ -10,9 +17,9 @@ require('electron-reload')(__dirname, {
 
 // keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win;
+let adminWin;
 // defines percentage of app screen size
-let progress=20;
+let progress=70;
 
 function createWindow() {
     // get primary display
@@ -26,36 +33,37 @@ function createWindow() {
     const options = {
         width: appWidth,
         height: appHeight,
-        frame: false,
+        // frame: false,
         x: width - appWidth,
         y: height - appHeight,
         resizable: false,
         movable: false,
-        minimizable: false,
+        /* minimizable: false,
         maximizable: false,
-        closable: false,
-        alwaysOnTop: true,
-        skipTaskbar: true,
+        closable: false, */
+        // alwaysOnTop: true,
+        // skipTaskbar: true,
     }
-    win = new BrowserWindow(options);
+    adminWin = new BrowserWindow(options);
     // Hide default app menu
-    win.setMenu(null);
+    // win.setMenu(null);
 
     // load the index.html of the app
-    win.loadFile('index.html');
+    adminWin.loadFile('index.html');
 
     // open dev tools
     // win.webContents.openDevTools();
 
     // emitted when the window is closed
-    win.on('closed', () => {
+    adminWin.on('closed', () => {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
-        win = null;
+        adminWin = null;
     });
 
-    win.onbeforeunload = (e) => {
+    adminWin.onbeforeunload = (e) => {
+        return true;
         console.log('I do not want to be closed')
         return false;
 
@@ -88,12 +96,13 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (win===null) {
+    if (adminWin===null) {
         createWindow();
     }
 });
 
 app.on('will-quit', (event) => {
+    database.disconnect();
     console.log('app about to quit');
     // event.preventDefault();
 });
@@ -111,5 +120,41 @@ app.on('gpu-process-crashed', (event) => {
     app.quit();
 });
 
+async function addEmployeeIfNotExists(event, empObject) {
+    console.log('finding employee: ' + empObject.email);
+    let emp = await employeeModel.findOneAndUpdate({
+        email: empObject.email
+    },
+    empObject,
+    { upsert: true });
+    event.sender.send('emp_added', { success: true, message: 'Updated employee successfully!' });
+}
+
+function fetchEmployees() {
+    console.log('fetching employees')
+    employeeModel.find()
+    .limit(10)
+    .then(empList => {
+        console.log('found employees: ' + empList.length)
+        console.log(JSON.stringify(empList));
+        adminWin.webContents.send('emp_list', { success: true, empList: JSON.stringify(empList) });
+    }).catch(err => {
+        console.log(err)
+        console.log('error finding employee')
+        // ipcMain.send('emp_list', { success: false, message: 'Error fetching employees list' });
+    })
+}
+
+ipcMain.on('frm_add_emp_submit', (event, arg) => {
+    console.log('received message');
+    console.log({arg});
+    if (!arg.email || !arg.elapsed_date_limit) {
+        console.log('invalid input');
+        event.sender.send('emp_added', { success: false, message: 'Please verify input!' });
+        return false;
+    }
+    addEmployeeIfNotExists(event, arg);
+    // event.sender.send('emp_added', 'received: ' + arg);
+})
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

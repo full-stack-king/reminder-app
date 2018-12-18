@@ -2,16 +2,16 @@
 <html>
 
 <head>
-    <title>Photon</title>
+    <title>Admin</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/photon.css">
-    <script src="js/menu.js" charset="utf-8"></script>
+    <!-- <script src="js/menu.js" charset="utf-8"></script> -->
+    <!-- <script src="src/index.js" charset="utf-8"></script> -->
 </head>
 
 <div class="window">
     <header class="toolbar toolbar-header">
-        <h1 class="title">Header with actions</h1>
         <div class="toolbar-actions">
             <div class="btn-group">
                 <button class="btn btn-default">
@@ -39,50 +39,59 @@
             </button>
         </div>
     </header>
-    <div class="window-content">
+    <div class="window-content" style="display: hidden;">
         <div class="pane-group">
             <div class="pane-sm sidebar">
-                <nav class="nav-group">
-                    <h5 class="nav-group-title">Favorites</h5>
-                    <a class="nav-group-item active">
-                        <span class="icon icon-home"></span>
-                        Raja
-                    </a>
-                    <span class="nav-group-item">
-                        <span class="icon icon-download"></span>
-                        Downloads
-                    </span>
-                    <span class="nav-group-item">
-                        <span class="icon icon-folder"></span>
-                        Documents
-                    </span>
-                    <span class="nav-group-item">
-                        <span class="icon icon-signal"></span>
-                        AirPlay
-                    </span>
-                    <span class="nav-group-item">
-                        <span class="icon icon-print"></span>
-                        Applications
-                    </span>
-                    <span class="nav-group-item">
-                        <span class="icon icon-cloud"></span>
-                        Desktop
-                    </span>
-                </nav>
+                <ul class="list-group">
+                    <li class="list-group-header">
+                        <input class="form-control" type="text" placeholder="Search for someone">
+                    </li>
+                    <li class="list-group-item">
+                        <img class="img-circle media-object pull-left" src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/32x32/plain/user.png" width="32" height="32">
+                        <div class="media-body">
+                            <strong>John</strong>
+                            <p>john@heptagon.in</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img class="img-circle media-object pull-left" src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/32x32/plain/user.png" width="32" height="32">
+                        <div class="media-body">
+                            <strong>Smith</strong>
+                            <p>smith@heptagon.in</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <!-- <div class="pane">content</div> -->
+            <div class="pane">
+                <div class="padded">
+                    <h3>Employee configuration</h3>
+                    <form id="frm_add_emp" class="form padded">
+                        <div class="form-group">
+                            <label>Employee Full Name</label>
+                            <input name="fullname" id="fullname" type="text" class="form-control" placeholder="Employee Full Name" value="Raja K">
+                        </div>
+                        <div class="form-group">
+                            <label>Employee Email</label>
+                            <input name="email" id="email" type="email" class="form-control" placeholder="Employee Email Address" value="raja.k@heptagon.in">
+                        </div>
+                        <div class="form-group">
+                            <label>Trigger after X days elapsed</label>
+                            <input name="elapsed_date_limit" id="elapsed_date_limit" type="number" class="form-control" value="5" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Skip limit</label>
+                            <input name="skip_limit" id="skip_limit" type="number" class="form-control" min="0" value="0">
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="btn_clear" class="btn btn-form btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-form btn-primary">Save</button>
+                        </div>
+                    </form>
+                    <p id="error_block">Please wait!</p>
+                </div>
+            </div>
         </div>
     </div>
-    <footer class="toolbar toolbar-footer">
-        <div class="toolbar-actions">
-            <button class="btn btn-default">
-                Cancel
-            </button>
-            <button class="btn btn-primary pull-right">
-                Save
-            </button>
-        </div>
-    </footer>
 </div>
 <script>
     // I do not want to be closed
@@ -91,9 +100,10 @@
         // a non-void value will silently cancel the close.
         // It is recommended to use the dialog API to let the user confirm closing the
         // application.
-        e.returnValue = false // equivalent to `return false` but not recommended
+        // e.returnValue = false // equivalent to `return false` but not recommended
     }
 </script>
+<script src="js/custom.js" charset="utf-8"></script>
 </body>
 
 </html>
