@@ -121,9 +121,9 @@ app.on('gpu-process-crashed', (event) => {
 });
 
 async function addEmployeeIfNotExists(event, empObject) {
-    console.log('finding employee: ' + empObject.email);
+    console.log('finding employee: ' + empObject.employee_id);
     let emp = await employeeModel.findOneAndUpdate({
-        email: empObject.email
+        employee_id: empObject.employee_id
     },
     empObject,
     { upsert: true });
@@ -148,7 +148,7 @@ function fetchEmployees() {
 ipcMain.on('frm_add_emp_submit', (event, arg) => {
     console.log('received message');
     console.log({arg});
-    if (!arg.email || !arg.elapsed_date_limit) {
+    if (!arg.employee_id || !arg.elapsed_date_limit) {
         console.log('invalid input');
         event.sender.send('emp_added', { success: false, message: 'Please verify input!' });
         return false;
