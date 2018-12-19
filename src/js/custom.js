@@ -56,7 +56,7 @@ ipcRenderer.on('emp_list', (event, arg) => {
 ipcRenderer.on('emp_added', (event, arg) => {
     console.log({'emp_added':arg});
     if (arg.success) {
-        alert(arg.message);
         frm_clear();
     }
+    alert(arg.message);
 })

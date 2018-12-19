@@ -11,9 +11,9 @@ mongoose.connection.on('connected', function () {
     fetchEmployees();
  });
 
-require('electron-reload')(__dirname, {
+/* require('electron-reload')(__dirname, {
     electron: require('${__dirname}/../../node_modules/electron')
-})
+}) */
 
 // keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -52,7 +52,7 @@ function createWindow() {
     adminWin.loadFile('index.html');
 
     // open dev tools
-    // win.webContents.openDevTools();
+    // adminWin.webContents.openDevTools();
 
     // emitted when the window is closed
     adminWin.on('closed', () => {
