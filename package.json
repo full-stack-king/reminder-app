@@ -1,7 +1,8 @@
 {
-  "name": "plandoo-reminder",
-  "productName": "Plandoo Reminder",
-  "version": "1.0.1",
+  "name": "plandoo-reminder-admin",
+  "productName": "Plandoo Reminder Admin",
+  "version": "1.0.2",
+  "homepage": "http://plandoo.heptagon.tech/",
   "description": "A reminder application for Plandoo entry",
   "main": "main.js",
   "scripts": {
@@ -15,7 +16,7 @@
   "build": {
     "appId": "hep.cbe",
     "asar": true,
-    "productName": "Plandoo Reminder",
+    "productName": "plandoo-reminder-admin",
     "copyright": "Copyright © Heptagon Technologies",
     "linux": {
       "target": [
@@ -27,7 +28,7 @@
       "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
     "deb": {
-      "synopsis": "Plandoo Desktop App",
+      "synopsis": "Plandoo Admin Desktop App",
       "afterInstall": "./scripts/debian-add-repo.sh",
       "afterRemove": "./scripts/debian-uninstaller.sh"
     }
